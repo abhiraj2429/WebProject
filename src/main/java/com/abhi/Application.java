@@ -1,22 +1,35 @@
 package com.abhi;
 
 
-import java.util.Arrays;
+import java.io.IOException;
 
-import org.springframework.boot.CommandLineRunner;
+import com.abhi.controller.ConsumerControllerClient;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
+import org.springframework.web.client.RestClientException;
 
 @SpringBootApplication
 public class Application {
 
-    public static void main(String[] args) {
-        SpringApplication.run(Application.class, args);}
+    public static void main(String[] args) throws RestClientException, IOException {
+        ApplicationContext applicationContext = SpringApplication.run(Application.class, args);
+        ConsumerControllerClient consumerControllerClient = applicationContext.getBean(ConsumerControllerClient.class);
+System.out.println(consumerControllerClient);
+consumerControllerClient.getEmployee();
 
 
-        @Bean
+    }
+
+    @Bean
+    public ConsumerControllerClient consumerControllerClient(){
+        return new ConsumerControllerClient();
+    }
+
+
+
+/*        @Bean
         public CommandLineRunner commandLineRunner (ApplicationContext ctx){
             return args -> {
 
@@ -29,6 +42,6 @@ public class Application {
                 }
 
             };
-        }
+        }*/
     }
 
